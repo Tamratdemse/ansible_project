@@ -1,0 +1,11 @@
+- name: Deploy Node.js on Webserver
+  hosts: webservers
+  become: yes
+  roles:
+    - webserver
+
+- name: Deploy MongoDB on DB server
+  hosts: dbservers
+  become: yes
+  roles:
+    - dbserver

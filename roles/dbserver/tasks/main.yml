@@ -1,0 +1,35 @@
+- name: Import MongoDB public GPG key
+  ansible.builtin.apt_key:
+    url: https://www.mongodb.org/static/pgp/server-6.0.asc
+    state: present
+
+- name: Create MongoDB list file
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/mongodb-org-6.0.list
+    content: |
+      deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install MongoDB packages
+  ansible.builtin.apt:
+    name: mongodb-org
+    state: present
+
+- name: Enable and start MongoDB service
+  ansible.builtin.systemd:
+    name: mongod
+    enabled: yes
+    state: started
+
+- name: Check MongoDB status
+  shell: systemctl is-active mongod
+  register: mongo_status
+  changed_when: false
+  ignore_errors: true
+
+- name: Show MongoDB status
+  debug:
+    var: mongo_status.stdout
