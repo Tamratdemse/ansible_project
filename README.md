@@ -73,12 +73,12 @@ d. Create the .env file
 This file will store your VM IPs and usernames. Do NOT commit this file to Git.
 Create a file named .env in the root of your ansible_project directory:
 
-# Your Webserver VM's IP
-# Your Webserver VM's username
-# Your DB Server VM's IP
-# Your DB Server VM's username
-# Your Frontend Server VM's IP
-# Your Frontend Server VM's username
+Your Webserver VM's IP
+Your Webserver VM's username
+Your DB Server VM's IP
+Your DB Server VM's username
+Your Frontend Server VM's IP
+Your Frontend Server VM's username
 
 e. Ensure inventory/hosts.ini.j2 is Correct
 This template uses the variables from your .env file. Confirm its content:
