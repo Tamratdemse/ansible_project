@@ -4,5 +4,8 @@
 [dbservers]
 {{ dbserver_ip }} ansible_user={{ dbserver_user }}
 
+[frontend]
+{{ frontend_ip }} ansible_user={{ frontend_user }}
+
 [all:vars]
 ansible_python_interpreter={{ python_path }}

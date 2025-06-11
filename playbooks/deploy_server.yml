@@ -9,3 +9,9 @@
   become: yes
   roles:
     - dbserver
+
+- name: Deploy Frontend Application
+  hosts: frontend # NEW PLAY
+  become: yes
+  roles:
+    - frontend # NEW ROLE

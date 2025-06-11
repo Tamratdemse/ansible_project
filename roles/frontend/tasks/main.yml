@@ -1,0 +1,28 @@
+---
+- name: Update apt cache on frontend server
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Ensure git is installed
+  apt:
+    name: git
+    state: present
+  become: yes
+
+- name: Clone frontend application repository
+  git:
+    repo: 'https://github.com/Tamratdemse/IOT-Front-End.git'
+    dest: /var/www/frontend_app
+    version: main
+    accept_hostkey: yes
+  become: yes
+
+- name: List cloned files (for verification)
+  shell: ls -l /var/www/frontend_app
+  register: cloned_files
+  changed_when: false
+
+- name: Show cloned file list
+  debug:
+    var: cloned_files.stdout

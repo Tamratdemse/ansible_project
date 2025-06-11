@@ -1,13 +1,14 @@
+
 - name: Import MongoDB public GPG key
   ansible.builtin.apt_key:
-    url: https://www.mongodb.org/static/pgp/server-6.0.asc
+    url: https://www.mongodb.org/static/pgp/server-4.4.asc
     state: present
 
 - name: Create MongoDB list file
   ansible.builtin.copy:
-    dest: /etc/apt/sources.list.d/mongodb-org-6.0.list
+    dest: /etc/apt/sources.list.d/mongodb-org-4.4.list
     content: |
-      deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse
+      deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse
 
 - name: Update apt cache
   ansible.builtin.apt:
