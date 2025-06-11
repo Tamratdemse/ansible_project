@@ -1,4 +1,3 @@
----
 - name: Install prerequisites for Node.js
   apt:
     name: curl
@@ -20,10 +19,22 @@
     state: present
     update_cache: yes
 
-- name: Ensure node and npm installed
+- name: Ensure node is installed
   command: node -v
   register: node_version
 
 - name: Show installed Node.js version
   debug:
     var: node_version.stdout
+
+- name: Install Git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+
+- name: Clone the IOT-Back-End repository
+  git:
+    repo: https://github.com/Tamratdemse/IOT-Back-End.git
+    dest: /opt/IOT-Back-End
+    update: yes

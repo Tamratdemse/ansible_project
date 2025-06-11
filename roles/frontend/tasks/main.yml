@@ -26,3 +26,41 @@
 - name: Show cloned file list
   debug:
     var: cloned_files.stdout
+# ---------------- FIREWALL CONFIGURATION ----------------
+
+- name: Ensure UFW is installed
+  ansible.builtin.apt:
+    name: ufw
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Reset UFW rules to defaults before applying new ones
+  community.general.ufw:
+    state: reset
+  become: yes
+
+- name: Set UFW default policy to deny all incoming
+  community.general.ufw:
+    default: deny # Corrected parameter name
+    direction: incoming
+  become: yes
+
+- name: Set UFW default policy to allow all outgoing
+  community.general.ufw:
+    default: allow # Corrected parameter name
+    direction: outgoing
+  become: yes
+
+- name: Allow SSH (port 22) access ONLY from Control Machine's IP
+  community.general.ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+    src: 172.17.188.60 # << IMPORTANT: Your Control Machine's Exact IP
+  become: yes
+
+- name: Enable UFW firewall
+  community.general.ufw:
+    state: enabled
+  become: yes
