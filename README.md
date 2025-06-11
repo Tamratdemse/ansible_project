@@ -149,31 +149,3 @@ Clones your frontend application repository (replace placeholder URL) into /var/
 Firewall: Installs UFW, resets rules, sets default policies (deny incoming, allow outgoing), allows SSH (port 22) ONLY from control_machine_ip, then enables UFW.
 NOTE: If your frontend application needs to be served via HTTP/HTTPS, you will need to add explicit ufw allow rules for ports 80/443 (or other ports) as needed.
 
-✅ Verification
-After the playbook completes, you can log into each VM and verify the deployments:
-
-Webserver VM (192.168.236.117):
-
-ssh tamrat@192.168.236.117
-sudo systemctl status nginx
-node -v
-npm -v
-ls -l /opt/iot_backend_app # Verify cloned backend files
-sudo ufw status verbose # Check firewall rules
-exit
-
-DB Server VM (192.168.236.12):
-
-ssh tamrat2@192.168.236.12
-sudo systemctl status mongod
-mongosh # To enter MongoDB shell, type 'exit' to leave
-sudo ufw status verbose # Check firewall rules
-exit
-
-Frontend Server VM (192.168.236.13):
-
-ssh tamrat3@192.168.236.13
-git --version
-ls -l /var/www/frontend_app # Verify cloned frontend files
-sudo ufw status verbose # Check firewall rules
-exit
